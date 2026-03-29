@@ -61,7 +61,7 @@ class ManagementTable extends StatelessWidget {
               decoration: BoxDecoration(
                 // Warna beda untuk Lomba vs Event
                 color: item.category.toLowerCase() == 'lomba' 
-                    ? Colors.orange.shade100 
+                    ? Color(0xFFF0E68C) 
                     : Colors.blue.shade100,
                 borderRadius: BorderRadius.circular(8)
               ),
@@ -71,7 +71,7 @@ class ManagementTable extends StatelessWidget {
                   fontSize: 11, 
                   fontWeight: FontWeight.bold,
                   color: item.category.toLowerCase() == 'lomba' 
-                      ? Colors.orange.shade900 
+                      ? Color(0xFFF0E68C)
                       : Colors.blue.shade900,
                 )
               ),

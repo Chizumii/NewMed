@@ -19,16 +19,20 @@ class _EventHeaderState extends State<EventHeader> {
   }
 
   // --- FUNGSI CEK LOGIN (Hanya dipakai untuk Search Result nanti, kalau perlu) ---
-  Future<void> _checkLoginAndProceed(BuildContext context, VoidCallback action) async {
+  Future<void> _checkLoginAndProceed(
+    BuildContext context,
+    VoidCallback action,
+  ) async {
     final provider = context.read<DatabaseProvider>();
-    
+
     if (provider.isLoggedIn) {
       action();
     } else {
       bool confirm = await showConfirmationDialog(
         context,
         title: "Akses Terbatas",
-        message: "Kamu harus login terlebih dahulu untuk melihat detail event ini.",
+        message:
+            "Kamu harus login terlebih dahulu untuk melihat detail event ini.",
         confirmLabel: "Login",
         cancelLabel: "Batal",
       );
@@ -61,7 +65,7 @@ class _EventHeaderState extends State<EventHeader> {
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
-          colors: [Color(0xFF3F054F), Color(0xFF291F51), Color(0xFF103D52)],
+          colors: [Color(0xFFFFFE0), Color(0xFFFFF9C4), Color(0xFFF0E68C)],
         ),
       ),
       child: SafeArea(
@@ -94,7 +98,7 @@ class _EventHeaderState extends State<EventHeader> {
                           "Upcoming\nEvents",
                           style: TextStyle(
                             fontFamily: 'VisuletPro',
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
                             height: 1.15,
@@ -105,7 +109,7 @@ class _EventHeaderState extends State<EventHeader> {
                           width: 90,
                           height: 4,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.black,
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -113,7 +117,7 @@ class _EventHeaderState extends State<EventHeader> {
                         const Text(
                           "This Isn’t Just an Event. It’s \nthe Experience Everyone \nWill Talk About.",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontFamily: 'VisuletPro',
                             fontSize: 16,
                             height: 1.6,
@@ -135,7 +139,7 @@ class _EventHeaderState extends State<EventHeader> {
                             child: Text(
                               "No upcoming events",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 16,
                               ),
                             ),
@@ -148,29 +152,30 @@ class _EventHeaderState extends State<EventHeader> {
                                 const SizedBox(width: 24),
                             itemBuilder: (context, index) {
                               final event = upcomingEvents[index];
-                              
+
                               // --- UPDATE LOGIC DI SINI ---
                               return GestureDetector(
                                 onTap: () {
                                   // KARENA INI LIST UPCOMING (BELUM BUKA),
                                   // KITA BLOKIR NAVIGASI DAN TAMPILKAN WARNING.
-                                  
-                                  String openDateStr = DateFormat('dd MMMM yyyy').format(event.openRegDate);
+
+                                  String openDateStr = DateFormat(
+                                    'dd MMMM yyyy',
+                                  ).format(event.openRegDate);
 
                                   showErrorDialog(
                                     context,
                                     title: "Coming Soon",
-                                    message: "Pendaftaran event ini baru akan dibuka pada tanggal:\n\n$openDateStr",
+                                    message:
+                                        "Pendaftaran event ini baru akan dibuka pada tanggal:\n\n$openDateStr",
                                   );
-                                  
+
                                   // Return agar tidak lanjut navigasi
                                   return;
                                 },
                                 // AbsorbPointer mencegah UpcomingEventCard menerima klik langsung
                                 child: AbsorbPointer(
-                                  child: UpcomingEventCard(
-                                    event: event,
-                                  ),
+                                  child: UpcomingEventCard(event: event),
                                 ),
                               );
                             },
@@ -204,10 +209,10 @@ class _EventHeaderState extends State<EventHeader> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(40),
-        border: Border.all(color: const Color(0xFFB763DD), width: 2),
+        border: Border.all(color: const Color(0xFFF0E68C), width: 2),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFEC83BB).withOpacity(0.5),
+            color: const Color(0xFFF0E68C).withOpacity(0.5),
             blurRadius: 25,
             spreadRadius: 2,
           ),

@@ -157,7 +157,7 @@ class _EventCardState extends State<EventCard> {
                           duration: const Duration(milliseconds: 200),
                           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                           decoration: BoxDecoration(
-                            color: _isHovered ? const Color(0xff3F054F) : Colors.white,
+                            color: _isHovered ? const Color(0xFFF0E68C) : Colors.white,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(

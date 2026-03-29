@@ -7,36 +7,51 @@ class Navbar extends StatelessWidget {
 
   const Navbar({super.key, required this.isLoggedIn, this.activePage = "Home"});
 
+  // Widget pembantu untuk Link Navigasi dengan efek Hover
   Widget _navLink(
     BuildContext context,
     String text,
     bool isActive,
     VoidCallback onTap,
   ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
+    return StatefulBuilder(
+      builder: (context, setState) {
+        bool isHovered = false;
+
+        return MouseRegion(
+          onEnter: (_) => setState(() => isHovered = true),
+          onExit: (_) => setState(() => isHovered = false),
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    text,
+                    style: TextStyle(
+                      // Warna teks hitam, berubah ungu saat hover
+                      color: isHovered ? const Color(0xFFB763DD) : Colors.black,
+                      fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  // Indikator garis bawah
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    height: 2,
+                    width: isActive ? 24 : 0,
+                    color: Colors.black,
+                  ),
+                ],
               ),
             ),
-            if (isActive)
-              Container(
-                margin: const EdgeInsets.only(top: 4),
-                height: 2,
-                width: 20,
-                color: Colors.white,
-              ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -46,24 +61,22 @@ class Navbar extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           title: const Text("Konfirmasi Logout"),
           content: const Text("Apakah Anda yakin ingin keluar akun?"),
           actions: [
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Tutup dialog
-              },
+              onPressed: () => Navigator.of(context).pop(),
               child: const Text("Batal", style: TextStyle(color: Colors.grey)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
+                elevation: 0,
               ),
               onPressed: () {
-                Navigator.of(context).pop(); // Tutup dialog
-
-                // Proses Logout
+                Navigator.of(context).pop();
                 dbProvider.logout();
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -87,181 +100,150 @@ class Navbar extends StatelessWidget {
     final bool isDesktop = width > 800;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+      // ===== UPDATE WARNA GRADASI DI SINI =====
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
-          colors: [Color(0xFFFF9800), Color(0xFFFB8C00), Color(0xFFE65100)],
+          colors: [
+            Color(0xFFFFFE0), // Kuning Terang
+            Color(0xFFFFF9C4), // Kuning Menengah
+            Color(0xFFF0E68C), // Khaki (Kuning Tua)
+          ],
         ),
       ),
       child: Row(
         children: [
-          Image.asset('assets/Image/Logo.png', height: 50),
+          Image.asset('assets/Image/Logo.png', height: 45),
           const Spacer(),
 
           if (isDesktop) ...[
             _navLink(context, "Home", activePage == "Home", () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const HomePage()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const HomePage()));
             }),
             _navLink(context, "Event", activePage == "Event", () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const Eventpage()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const Eventpage()));
             }),
           ],
 
-          const SizedBox(width: 20),
+          const SizedBox(width: 25),
 
           if (isLoggedIn)
             PopupMenuButton<String>(
-              offset: const Offset(0, 50), // Supaya menu muncul di bawah avatar
+              offset: const Offset(0, 50),
+              tooltip: "Account Menu",
               onSelected: (value) {
                 if (value == 'organize') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const OrganizerDashboard(),
-                    ),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const OrganizerDashboard()));
                 } else if (value == 'admin') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AdminDashboard(),
-                    ),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const AdminDashboard()));
                 } else if (value == 'history') {
-                  // --- MENU BARU: HISTORY REGISTRASI ---
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MyRegistrationsPage(),
-                    ),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const MyRegistrationsPage()));
                 } else if (value == 'profile') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfilePage(),
-                    ),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfilePage()));
                 } else if (value == 'logout') {
                   _showLogoutDialog(context, dbProvider);
                 }
               },
               itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                // Menu Khusus Organizer
                 if (user?.role == 'organizer')
                   const PopupMenuItem<String>(
                     value: 'organize',
-                    child: Row(
-                      children: [
-                        Icon(Icons.event_note, color: Colors.black54, size: 20),
-                        SizedBox(width: 10),
-                        Text('Organize Events'),
-                      ],
-                    ),
+                    child: _PopupItem(icon: Icons.event_note, text: 'Organize Events'),
                   ),
-
-                // Menu Khusus Admin
                 if (user?.role == 'admin')
                   const PopupMenuItem<String>(
                     value: 'admin',
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.admin_panel_settings,
-                          color: Colors.black54,
-                          size: 20,
-                        ),
-                        SizedBox(width: 10),
-                        Text('Manage Admin'),
-                      ],
-                    ),
+                    child: _PopupItem(icon: Icons.admin_panel_settings, text: 'Manage Admin'),
                   ),
-
-                // --- ITEM MENU BARU: MY REGISTRATIONS ---
                 const PopupMenuItem<String>(
                   value: 'history',
-                  child: Row(
-                    children: [
-                      Icon(Icons.history, color: Colors.black54, size: 20),
-                      SizedBox(width: 10),
-                      Text('My Registrations'),
-                    ],
-                  ),
+                  child: _PopupItem(icon: Icons.history, text: 'My Registrations'),
                 ),
-
-                // ----------------------------------------
                 const PopupMenuItem<String>(
                   value: 'profile',
-                  child: Row(
-                    children: [
-                      Icon(Icons.person, color: Colors.black54, size: 20),
-                      SizedBox(width: 10),
-                      Text('Manage Profile'),
-                    ],
-                  ),
+                  child: _PopupItem(icon: Icons.person, text: 'Manage Profile'),
                 ),
-
                 const PopupMenuDivider(),
-
                 const PopupMenuItem<String>(
                   value: 'logout',
-                  child: Row(
-                    children: [
-                      Icon(Icons.logout, color: Colors.red, size: 20),
-                      SizedBox(width: 10),
-                      Text('Logout', style: TextStyle(color: Colors.red)),
-                    ],
+                  child: _PopupItem(
+                    icon: Icons.logout, 
+                    text: 'Logout', 
+                    textColor: Colors.red, 
+                    iconColor: Colors.red
                   ),
                 ),
               ],
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 18,
-                    backgroundColor: Colors.grey[300],
-                    backgroundImage:
-                        (user?.avatarUrl != null && user!.avatarUrl!.isNotEmpty)
-                        ? NetworkImage(user.avatarUrl!)
-                        : const NetworkImage(
-                            "https://cdn-icons-png.freepik.com/512/6522/6522516.png",
-                          ),
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    user?.email ?? "User",
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  const Icon(Icons.arrow_drop_down, color: Colors.white),
-                ],
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Colors.grey[200],
+                      backgroundImage: (user?.avatarUrl != null && user!.avatarUrl!.isNotEmpty)
+                          ? NetworkImage(user.avatarUrl!)
+                          : const NetworkImage("https://cdn-icons-png.freepik.com/512/6522/6522516.png"),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      user?.email ?? "User",
+                      style: const TextStyle(
+                        color: Colors.black, 
+                        fontWeight: FontWeight.w600
+                      ),
+                    ),
+                    const Icon(Icons.arrow_drop_down, color: Colors.black),
+                  ],
+                ),
               ),
             )
           else
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const LoginPage()));
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: const Color(0xFFE65100),
+                backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 18),
+                elevation: 0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              child: const Text("Log In"),
+              child: const Text("Log In", style: TextStyle(fontWeight: FontWeight.bold)),
             ),
         ],
       ),
+    );
+  }
+}
+
+// Widget internal untuk item menu popup
+class _PopupItem extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  final Color textColor;
+  final Color iconColor;
+
+  const _PopupItem({
+    required this.icon,
+    required this.text,
+    this.textColor = Colors.black87,
+    this.iconColor = Colors.black54,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, color: iconColor, size: 20),
+        const SizedBox(width: 12),
+        Text(text, style: TextStyle(color: textColor, fontSize: 14)),
+      ],
     );
   }
 }

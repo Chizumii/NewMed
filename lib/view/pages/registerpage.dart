@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("The Event", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color(0xFFE65100))),
+              const Text("UCommittee", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 237, 220, 64))),
               const SizedBox(height: 8),
               const Text("Create your account", style: TextStyle(fontSize: 18, color: Colors.grey)),
               const SizedBox(height: 30),
@@ -113,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFE65100),
+                            backgroundColor: Color(0xFFF0E68C),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                           ),
@@ -123,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(height: 16),
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text("Already have an account? Sign In", style: TextStyle(color: Color(0xFFE65100))),
+                      child: const Text("Already have an account? Sign In", style: TextStyle(color: Color.fromARGB(255, 237, 220, 64))),
                     ),
                   ],
                 ),

@@ -293,14 +293,14 @@ class _EventDetailPageState extends State<EventDetailPage> {
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     margin: const EdgeInsets.only(bottom: 20),
     decoration: BoxDecoration(
-      color: const Color(0xffE65100).withOpacity(0.1),
+      color: const Color(0xFFF0E68C).withOpacity(0.1),
       borderRadius: BorderRadius.circular(30),
-      border: Border.all(color: const Color(0xffE65100)),
+      border: Border.all(color: const Color(0xFFF0E68C)),
     ),
     child: Text(
       widget.event.category.toUpperCase(),
       style: const TextStyle(
-        color: Color(0xffE65100),
+        color: Color(0xFFF0E68C),
         fontWeight: FontWeight.bold,
       ),
     ),
@@ -430,7 +430,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
           padding: const EdgeInsets.symmetric(vertical: 20),
           backgroundColor: (isClosed || isFull)
               ? Colors.grey
-              : const Color(0xffE65100),
+              : const Color(0xFFF0E68C),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40),
           ),
@@ -509,7 +509,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
         ElevatedButton(
           onPressed: _isNotifying ? null : _handleNotify, // Panggil fungsi saat diklik
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xffE65100),
+            backgroundColor: const Color(0xFFF0E68C),
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             shape: const StadiumBorder(),
           ),

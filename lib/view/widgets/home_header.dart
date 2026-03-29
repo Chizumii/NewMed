@@ -30,15 +30,11 @@ class _HomeHeaderState extends State<HomeHeader> {
       width: double.infinity,
 
       padding: const EdgeInsets.symmetric(),
-     decoration: const BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
-          colors: [
-            Color(0xFFFF9800), // Oren Terang
-            Color(0xFFFB8C00), // Oren Sederhana
-            Color(0xFFE65100), // Oren Gelap
-          ],
+          colors: [Color(0xFFFFFE0), Color(0xFFFFF9C4), Color(0xFFF0E68C)],
         ),
       ),
       child: Column(
@@ -48,11 +44,11 @@ class _HomeHeaderState extends State<HomeHeader> {
           const SizedBox(height: 80),
 
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 140,),
+            padding: const EdgeInsets.symmetric(horizontal: 140),
             child: const Text(
               "Find Your Next Experience",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 26,
                 fontFamily: 'VisuletPro',
                 fontStyle: FontStyle.italic,
@@ -65,7 +61,7 @@ class _HomeHeaderState extends State<HomeHeader> {
             child: const Text(
               "Discover & Promote\nUpcoming Events",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 75,
                 fontWeight: FontWeight.w900,
                 fontFamily: 'VisuletPro',
@@ -95,7 +91,7 @@ class _HomeHeaderState extends State<HomeHeader> {
         borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFFFB74D).withOpacity(0.6), // Shadow oren muda
+            color: const Color(0xFFF0E68C).withOpacity(0.6), // Shadow oren muda
             blurRadius: 25,
             spreadRadius: 2,
             offset: const Offset(0, 0),
@@ -105,7 +101,7 @@ class _HomeHeaderState extends State<HomeHeader> {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFFFFB74D), Color(0xFFF57C00)], // Border oren
+            colors: [Color(0xFFF0E68C), Color(0xFFFFF9C4)], // Border oren
           ),
           width: 2,
         ),

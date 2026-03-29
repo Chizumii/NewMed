@@ -56,13 +56,13 @@ class LeftSideHero extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFFF57C00), Color(0xFFE65100)], // Gradien oren
+          colors: [ Color(0xFFF0E68C), Color(0xFFFFF9C4)],
         ),
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(100),
           bottomRight: Radius.circular(100),
         ),
-      ),
+      ), 
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 60.0),
         child: Column(
@@ -72,7 +72,7 @@ class LeftSideHero extends StatelessWidget {
             Text(
               "Find Your Next\nExperience",
               style: TextStyle(
-                color: Colors.white60,
+                color: Colors.black,
                 fontSize: 24,
                 fontStyle: FontStyle.italic,
                 fontFamily: 'Georgia',
@@ -82,7 +82,7 @@ class LeftSideHero extends StatelessWidget {
             Text(
               "Discover\n&\nPromote\nUpcoming\nEvents",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 52,
                 fontWeight: FontWeight.w900,
                 height: 1.1,
@@ -137,11 +137,11 @@ class _SignInFormState extends State<SignInForm> {
           controller: _emailController,
           decoration: InputDecoration(
             labelText: "Email",
-            labelStyle: const TextStyle(color: Color(0xFFE65100)),
+            labelStyle: const TextStyle(color: Color.fromARGB(255, 237, 220, 64)),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Color(0xFFE65100), width: 2),
+              borderSide: const BorderSide(color: Color(0xFFF0E68C), width: 2),
             ),
           ),
         ),
@@ -210,7 +210,7 @@ class _SignInFormState extends State<SignInForm> {
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFEF6C00),
+              backgroundColor: const Color(0xFFF0E68C),
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 20),
               shape: RoundedRectangleBorder(
@@ -219,7 +219,7 @@ class _SignInFormState extends State<SignInForm> {
             ),
             child: const Text(
               "Sign In",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16 , fontWeight: FontWeight.bold),
             ),
           ),
 
@@ -242,7 +242,7 @@ class _SignInFormState extends State<SignInForm> {
                 child: const Text(
                   "Create one",
                   style: TextStyle(
-                    color: Color(0xFFE65100),
+                    color: Color(0xFFF0E68C),
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
                   ),

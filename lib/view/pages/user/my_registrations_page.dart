@@ -44,15 +44,17 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
     }
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Gagal membuka link.")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Gagal membuka link.")));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final isLoggedIn = context.select<DatabaseProvider, bool>((p) => p.isLoggedIn);
+    final isLoggedIn = context.select<DatabaseProvider, bool>(
+      (p) => p.isLoggedIn,
+    );
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -70,7 +72,11 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
-                  colors: [Color(0xFF3F054F), Color(0xFF291F51)],
+                  colors: [
+                    Color(0xFFFFFE0),
+                    Color(0xFFFFF9C4),
+                    Color(0xFFF0E68C),
+                  ],
                 ),
               ),
               child: const Column(
@@ -81,13 +87,13 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
                       fontFamily: 'VisuletPro',
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   SizedBox(height: 10),
                   Text(
                     "Pantau status penerimaan event, lomba, dan pengmas kamu di sini.",
-                    style: TextStyle(color: Colors.white70, fontSize: 16),
+                    style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                 ],
               ),
@@ -101,15 +107,15 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
                 child: _isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : _registrations.isEmpty
-                        ? _buildEmptyState()
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: _registrations.length,
-                            itemBuilder: (context, index) {
-                              return _buildRegistrationCard(_registrations[index]);
-                            },
-                          ),
+                    ? _buildEmptyState()
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: _registrations.length,
+                        itemBuilder: (context, index) {
+                          return _buildRegistrationCard(_registrations[index]);
+                        },
+                      ),
               ),
             ),
 
@@ -146,7 +152,9 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
     final title = event['title'] ?? 'Unknown Event';
     final groupLink = event['whatsapp_group_link'];
     final eventDateStr = event['event_date'];
-    DateTime? eventDate = eventDateStr != null ? DateTime.tryParse(eventDateStr) : null;
+    DateTime? eventDate = eventDateStr != null
+        ? DateTime.tryParse(eventDateStr)
+        : null;
 
     // Tentukan Warna & Teks Status
     Color statusColor;
@@ -192,16 +200,23 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  
+
                   // Tanggal Event
                   if (eventDate != null)
                     Row(
                       children: [
-                        const Icon(Icons.calendar_today, size: 14, color: Colors.grey),
+                        const Icon(
+                          Icons.calendar_today,
+                          size: 14,
+                          color: Colors.grey,
+                        ),
                         const SizedBox(width: 5),
                         Text(
                           DateFormat('dd MMMM yyyy').format(eventDate),
-                          style: const TextStyle(color: Colors.grey, fontSize: 13),
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 13,
+                          ),
                         ),
                       ],
                     ),
@@ -209,7 +224,7 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
                   const SizedBox(height: 15),
 
                   // --- LOGIKA PESAN STATUS (Left Side) ---
-                  
+
                   // 1. Jika Diterima
                   if (status == 'accepted') ...[
                     const Text(
@@ -220,7 +235,10 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
                     InkWell(
                       onTap: () => _launchURL(groupLink),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFF25D366), // Warna WA
                           borderRadius: BorderRadius.circular(8),
@@ -242,28 +260,40 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
                         ),
                       ),
                     ),
-                  
-                  // 2. Jika Ditolak
+
+                    // 2. Jika Ditolak
                   ] else if (status == 'rejected') ...[
-                     const Text(
+                    const Text(
                       "Mohon maaf, Anda belum lolos seleksi untuk kegiatan ini.",
-                      style: TextStyle(fontSize: 13, color: Colors.grey, fontStyle: FontStyle.italic),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
-                  
-                  // 3. Jika Pending (TAMBAHAN BARU)
+
+                    // 3. Jika Pending (TAMBAHAN BARU)
                   ] else ...[
-                     Row(
-                       children: [
-                         const Icon(Icons.hourglass_empty, size: 16, color: Colors.orange),
-                         const SizedBox(width: 6),
-                         const Expanded(
-                           child: Text(
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.hourglass_empty,
+                          size: 16,
+                          color: Colors.orange,
+                        ),
+                        const SizedBox(width: 6),
+                        const Expanded(
+                          child: Text(
                             "Pendaftaran sedang ditinjau oleh panitia.",
-                            style: TextStyle(fontSize: 13, color: Colors.orange, fontWeight: FontWeight.w500),
-                           ),
-                         ),
-                       ],
-                     ),
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.orange,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ],
               ),
@@ -275,7 +305,10 @@ class _MyRegistrationsPageState extends State<MyRegistrationsPage> {
             Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: statusColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),

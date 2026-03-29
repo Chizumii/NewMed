@@ -40,11 +40,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'The Event',
         theme: ThemeData(
-          primaryColor: Colors.orange[800],
+          primaryColor: const Color(0xFFF0E68C),
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.orange,
-            primary: Colors.orange[900]!,
-            secondary: Colors.deepOrangeAccent,
+            seedColor: Color(0xFFF0E68C),
+            primary: const Color(0xFFF0E68C),
+            secondary: Color(0xFFF0E68C),
           ),
         ),
         // Wrapper Pintar untuk cek status Login & Role
