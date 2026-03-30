@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'The Event',
+        title: 'UCommittee',
         theme: ThemeData(
           primaryColor: const Color(0xFFF0E68C),
           colorScheme: ColorScheme.fromSeed(

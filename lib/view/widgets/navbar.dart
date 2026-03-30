@@ -115,7 +115,7 @@ class Navbar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset('assets/Image/logo.svg', height: 45),
+          Image.asset('assets/Image/Logo.png', height: 45),
           const Spacer(),
 
           if (isDesktop) ...[

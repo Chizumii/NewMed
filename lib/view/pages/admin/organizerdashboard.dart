@@ -169,7 +169,7 @@ class _OrganizerDashboardState extends State<OrganizerDashboard> {
             ),
           );
         },
-        backgroundColor: const Color(0xff3F054F),
+        backgroundColor: const Color(0xFFF0E68C),
         icon: const Icon(Icons.add, color: Colors.white),
         label: Text(
           "Buat ${currentCategoryFilter.isNotEmpty ? currentCategoryFilter[0].toUpperCase() + currentCategoryFilter.substring(1) : 'Kegiatan'}",
