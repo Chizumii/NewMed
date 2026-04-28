@@ -1,7 +1,7 @@
 part of 'pages.dart';
 
 class AllEventsSection extends StatelessWidget {
-  const AllEventsSection({super.key});
+  const   AllEventsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class AllEventsSection extends StatelessWidget {
                         );
                       },
                       // Styling Chip
-                      selectedColor: const Color(0xFF3F054F),
+                      selectedColor: const Color(0xFFF0E68C),
                       backgroundColor: Colors.grey[200],
                       labelStyle: TextStyle(
                         color: isSelected ? Colors.white : Colors.black87,

@@ -10,7 +10,7 @@ import '../../widgets/pages.dart';
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
 class _C {
-  static const khaki      = Color(0xFFF0E68C);
+  static const khaki      = Color(0xFFFfd700);
   static const khakiDeep  = Color(0xFFD4C96A);
   static const ink        = Color(0xFF0F172A);
   static const inkSoft    = Color(0xFF1E293B);

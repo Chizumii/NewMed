@@ -71,7 +71,6 @@ flutter:
     - assets/fonts/
     - assets/Image/
     - assets/Image/Logo.png
-    - assets/Image/testing.png
     - .env
 
   fonts:

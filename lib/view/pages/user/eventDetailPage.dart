@@ -430,7 +430,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
           padding: const EdgeInsets.symmetric(vertical: 20),
           backgroundColor: (isClosed || isFull)
               ? Colors.grey
-              : const Color(0xFFF0E68C),
+              : const Color(0xFFFfd700),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40),
           ),

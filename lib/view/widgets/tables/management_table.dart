@@ -71,7 +71,7 @@ class ManagementTable extends StatelessWidget {
                   fontSize: 11, 
                   fontWeight: FontWeight.bold,
                   color: item.category.toLowerCase() == 'lomba' 
-                      ? Color(0xFFF0E68C)
+                      ? Color.fromARGB(255, 0, 0, 0)
                       : Colors.blue.shade900,
                 )
               ),
